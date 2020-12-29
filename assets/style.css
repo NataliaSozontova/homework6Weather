@@ -47,10 +47,14 @@
 }
 p {
     color: white;
-    size: inherit;
+   font-size: 12px;
 }
 
 h4 {
     color: white;
-    font-size: 14px;
+    font-size: 16px;
+}
+
+#search-card {
+  background-color: lightgrey;
 }

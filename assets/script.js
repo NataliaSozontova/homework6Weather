@@ -45,7 +45,7 @@ $("body").on("click",".list-group-item", function (event) {
               console.log(response);
         
            var temperature = JSON.stringify(response.main.temp);
-           $("#temp").text("Temperature: " + temperature + " F");
+           $("#temp").text("Temperature: " + temperature +" " + String.fromCharCode(176) + "F");
            var humidity = JSON.stringify(response.main.humidity);
            $("#humid").text("Humidity: " + humidity + "%");
            var wind = JSON.stringify(response.wind.speed);
@@ -57,8 +57,37 @@ $("body").on("click",".list-group-item", function (event) {
            var iconURL = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
            console.log(iconURL);
 
-           date.text(city + " " + today)
+           $("#currentDay").text(city + " " + today)
            $("#icon").attr("src", iconURL);
+
+           var lon = response.coord.lon;
+           var lat = response.coord.lat;
+           console.log(lon + " " + lat);
+                
+           var uvUrl = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + key;
+           $.ajax({
+            url: uvUrl,
+            method: "GET"
+          })
+            // After data comes back from the request
+            .then(function(response) {
+            var uv = response.value;
+            console.log(uv);
+            $("#uv").text(uv);
+                
+            if(uv>=0 && uv<3){
+                $("span").css( "background", "green" );
+            }else if(uv>=3 && uv<6){
+                $("span").css( "background", "yellow" );
+            }else if(uv>=6 && uv<=8){
+                $("span").css( "background", "orange" );
+            }else if(uv>=8 && uv<11){
+                $("span").css( "background", "orange" );
+            }else if(uv>=11){
+                $("span").css( "background", "violet" );
+            }
+        
+            }); 
 
         }); 
 
@@ -86,7 +115,7 @@ var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&
     //     $("#humid"+i).text("Humidity: " + humidity + "%");
     //   }
    var temperature = JSON.stringify(response.list[0].main.temp);
-   $("#temp1").text("Temp: " + temperature + " F");
+   $("#temp1").text("Temp: " + temperature +" " + String.fromCharCode(176) + "F");
    var humidity = JSON.stringify(response.list[0].main.humidity);
    $("#humid1").text("Humidity: " + humidity + "%");
    var icon = response.list[0].weather[0].icon;
@@ -94,7 +123,7 @@ var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&
    $("#icon1").attr("src", iconURL);
 
    var temperature = JSON.stringify(response.list[8].main.temp);
-   $("#temp2").text("Temp: " + temperature + " F");
+   $("#temp2").text("Temp: " + temperature +" " + String.fromCharCode(176) + "F");
    var humidity = JSON.stringify(response.list[8].main.humidity);
    $("#humid2").text("Humidity: " + humidity + "%");
    var icon = response.list[8].weather[0].icon;
@@ -102,7 +131,7 @@ var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&
    $("#icon2").attr("src", iconURL);
 
    var temperature = JSON.stringify(response.list[16].main.temp);
-   $("#temp3").text("Temp: " + temperature + " F");
+   $("#temp3").text("Temp: " + temperature + " " + String.fromCharCode(176) + "F");
    var humidity = JSON.stringify(response.list[16].main.humidity);
    $("#humid3").text("Humidity: " + humidity + "%");
    var icon = response.list[16].weather[0].icon;
@@ -110,7 +139,7 @@ var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&
    $("#icon3").attr("src", iconURL);
 
    var temperature = JSON.stringify(response.list[24].main.temp);
-   $("#temp4").text("Temp: " + temperature + " F");
+   $("#temp4").text("Temp: " + temperature + " " + String.fromCharCode(176) + "F");
    var humidity = JSON.stringify(response.list[24].main.humidity);
    $("#humid4").text("Humidity: " + humidity + "%");
    var icon = response.list[16].weather[0].icon;
@@ -118,7 +147,7 @@ var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&
    $("#icon4").attr("src", iconURL);
 
    var temperature = JSON.stringify(response.list[32].main.temp);
-   $("#temp5").text("Temp: " + temperature + " F");
+   $("#temp5").text("Temp: " + temperature + " " + String.fromCharCode(176) + "F");
    var humidity = JSON.stringify(response.list[32].main.humidity);
    $("#humid5").text("Humidity: " + humidity + "%");
    var icon = response.list[16].weather[0].icon;
