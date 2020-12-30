@@ -20,7 +20,6 @@ $("#submit").on("click", function (event) {
     event.preventDefault();
     city = search.value.trim();
     console.log(city);
-    // date.text(city + " " + today);
     weather.style.display = "block";
     getForcast(city);
     checkHistory(city);
@@ -103,7 +102,6 @@ function getCurrentWeather(city) {
 function getForcast(city) {
     var key = "ee832b09a8728a9c7e626c00b6d86173";
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&appid=" + key;
-    // date.text(city + " " + today);
 
     $.ajax({
         url: queryURL,
